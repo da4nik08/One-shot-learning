@@ -3,3 +3,4 @@
 events.out.tfevents.*
 *-checkpoint*
 *.pyc
+**/.ipynb_checkpoints/
