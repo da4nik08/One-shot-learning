@@ -5,7 +5,6 @@ import torch
 from PIL import Image
 from tqdm import tqdm, tqdm_notebook
 from src.classification_model_pretrain.metrics import Metrics
-from src.classification_model_pretrain.custom_dataset import CustomDataset
 import time
 from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
