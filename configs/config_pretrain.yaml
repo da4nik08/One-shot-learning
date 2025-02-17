@@ -14,10 +14,11 @@ dataloader:
     batch_size: 128
     num_workers: 4
 train:
-    svs_path: "model_svs/"
+    svs_path: "model_svs/pretain/"
     model_name: "first_try"
     epochs: 50
     save_treshold: 2
+    log_path: "logs/pretrain/"
 AdamW:
     learning_rate_large: 5e-4
     learning_rate_small: 5e-5

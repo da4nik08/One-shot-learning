@@ -37,11 +37,11 @@ def train_step(model, loss_fn, opt, loader, batch_size):
     return loss_per_batches/(i+1)
 
 
-def train(model, loss_fn, opt, train_loader, val_loader, batch_size, directory_path, save_treshold=10, epochs=50, model_name='model_name'):
+def train(model, loss_fn, opt, train_loader, val_loader, batch_size, directory_path, log_path, save_treshold=10, epochs=50, model_name='model_name'):
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     model_type, module = model.get_info()
-    writer = SummaryWriter('/kaggle/working/runs/' + model_name + '{}_{}_{}'.format(model_type, module, timestamp))
+    writer = SummaryWriter(log_path + model_name + '{}_{}_{}'.format(model_type, module, timestamp)) # !!!!!
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(opt, epochs)
     
     for epoch in range(epochs):
@@ -89,7 +89,7 @@ def train(model, loss_fn, opt, train_loader, val_loader, batch_size, directory_p
                     }, epoch + 1)
 
         if (epoch + 1) % save_treshold == 0:
-            model_path = '/kaggle/working/model_svs/' + model_name +'_{}_{}_{}_{}'.format(model_type, module, 
+            model_path = directory_path + model_name +'_{}_{}_{}_{}'.format(model_type, module, 
                                                                           timestamp, (epoch + 1))
             torch.save(model.state_dict(), model_path)
         end_epoch = time.time()

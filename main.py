@@ -65,5 +65,6 @@ def main():
     model = model.to(device)
 
     train(model, criterion, optimizer, train_dataloader, val_dataloader, config['dataloader']['batch_size'], 
-          config['train']['svs_path'], save_treshold=config['train']['save_treshold'], 
+          config['train']['svs_path'], config['train']['log_path'], 
+          save_treshold=config['train']['save_treshold'], 
           epochs=config['train']['epochs'], model_name=config['train']['model_name'])
