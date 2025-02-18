@@ -4,17 +4,14 @@ dataset:
     labels_folder_val: '/kaggle/input/military-equipment/Dataset military equipment/labels_val'
     labels_folder_train: '/kaggle/input/military-equipment/Dataset military equipment/labels_train'
     RESCALE_SIZE: 320
+    DATA_MODES: ['train', 'val', 'test']
     MEAN: [0.5097, 0.524, 0.5099]
     STD: [0.212, 0.212, 0.237]
-model:
-    groups: [2, 4, 4, 4]
-    num_classes: 11
-    pretrained: True
 dataloader:
     batch_size: 128
     num_workers: 4
 train:
-    svs_path: "model_svs/pretain/"
+    svs_path: "model_svs/pretrain/"
     model_name: "first_try"
     epochs: 50
     save_treshold: 2

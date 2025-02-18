@@ -3,7 +3,7 @@ from torch.utils.data import Dataset, DataLoader
 
 
 class CustomDataset(Dataset):
-    def __init__(self, images, labels, mode, transform):
+    def __init__(self, images, labels, mode, transform, DATA_MODES):
         super().__init__()
         self.mode = mode
         self.transform = transform

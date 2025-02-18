@@ -10,7 +10,7 @@ def custom_transform(img, rescale_size):
     return image
 
 
-def preproc(dataframe):
+def preprocessing_real_ds(dataframe):
     index_list = []
     image_list = []
     label_list = []
@@ -28,7 +28,6 @@ def preproc(dataframe):
             continue
         
         try:
-            # Open the image
             img = Image.open(img_path)
             if img.mode != 'RGB'
                 img = img.convert('RGB')

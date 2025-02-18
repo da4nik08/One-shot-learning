@@ -2,24 +2,25 @@ import numpy as np
 import pandas as pd
 import os
 import torch
+from sklearn.preprocessing import LabelEncoder
 from PIL import Image
 from tqdm import tqdm, tqdm_notebook
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 from src.classification_model_pretrain.train_classification import train
-from preprocessing import preprocessing
-from preprocessing import calculate_cw
+from preprocessing import preprocessing, calculate_cw, preprocessing_real_ds, get_captured, train_test_split
 from src.classification_model_pretrain.custom_dataset import CustomDataset
 from models import ResNet18WithSGE
 from utilities import load_config
 
 
-def main():
-    CONFIGS_PATH = "configs/"
+def pretrain(CONFIGS_PATH):
     config = load_config(CONFIGS_PATH, "config_pretrain.yaml")
+    model_config = load_config(CONFIGS_PATH, "config_model.yaml")
 
     train_images, train_labels = preprocessing(config['dataset']['image_folder_train'], 
-                                               config['dataset']['labels_folder_train'], config['dataset']['RESCALE_SIZE'])
+                                               config['dataset']['labels_folder_train'], 
+                                               config['dataset']['RESCALE_SIZE'])
     val_images, val_labels = preprocessing(config['dataset']['image_folder_val'], 
                                            config['dataset']['labels_folder_val'], config['dataset']['RESCALE_SIZE'])
     class_weights = calculate_cw(train_labels)
@@ -32,15 +33,15 @@ def main():
         transforms.Normalize(config['dataset']['MEAN'], config['dataset']['STD'])
     ])
 
-    train_dataset = CustomDataset(train_images, train_labels, 'train', transform_v1)
+    train_dataset = CustomDataset(train_images, train_labels, 'train', transform_v1, config['dataset']['DATA_MODES'])
     train_dataloader = DataLoader(train_dataset, batch_size=config['dataloader']['batch_size'], 
                                   num_workers=config['dataloader']['num_workers'], shuffle=True)
-    val_dataset = CustomDataset(val_images, val_labels, 'val', transform_v1)
+    val_dataset = CustomDataset(val_images, val_labels, 'val', transform_v1, config['dataset']['DATA_MODES'])
     val_dataloader = DataLoader(val_dataset, batch_size=config['dataloader']['batch_size'],
                                 num_workers=num_workers=config['dataloader']['num_workers'])
 
-    model = ResNet18WithSGE(num_classes=config['model']['num_classes'], groups=config['model']['groups'], 
-                            pretrained=config['model']['pretrained'])
+    model = ResNet18WithSGE(num_classes=model_config['model']['num_classes'], groups=model_config['model']['groups'], 
+                            pretrained=model_config['model']['pretrained'])
     
     pretrained_params = []
     sge_params = []
@@ -68,3 +69,33 @@ def main():
           config['train']['svs_path'], config['train']['log_path'], 
           save_treshold=config['train']['save_treshold'], 
           epochs=config['train']['epochs'], model_name=config['train']['model_name'])
+
+
+def train_siamese(CONFIGS_PATH):
+    siamese_config = load_config(CONFIGS_PATH, "config_train.yaml")
+    model_config = load_config(CONFIGS_PATH, "config_model.yaml")
+    
+    capt_df = get_captured(siamese_config['dataset']['path_img_metadata_ru'], siamese_config['dataset']['target_name'])
+    train_data, val_data = train_test_split(capt_df, siamese_config['dataset']['target_name'])
+    
+    train_images, train_labels, _ = preprocessing_real_ds(train_data)
+    val_images, val_labels, _ = preprocessing_real_ds(val_data)
+
+    le = LabelEncoder()
+    le.fit(list(set(train_labels)))
+    
+    enc_tlabels = le.transform(train_labels)
+    enc_vlabels = le.transform(val_labels)
+
+    transform_v2 = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.RandomHorizontalFlip(p=0.25),
+        transforms.RandomRotation(degrees=25),
+        transforms.RandomPerspective(distortion_scale=0.6, p=0.25),
+        transforms.Normalize(siamese_config['dataset']['MEAN'], siamese_config['dataset']['STD'])
+    ])
+    
+
+def main():
+    CONFIGS_PATH = "configs/"
+    pretrain(CONFIGS_PATH)
