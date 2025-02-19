@@ -9,6 +9,7 @@ dataset:
     RESCALE_SIZE: 320
     MEAN: [0.5097, 0.524, 0.5099]
     STD: [0.212, 0.212, 0.237]
+    DATA_MODES: ['train', 'val', 'test']
     target_name: 'equipment'
 dataloader:
     batch_size: 64
@@ -18,9 +19,8 @@ train:
     model_name: "first_try"
     epochs: 50
     save_treshold: 2
+    margin: 1
     log_path: "logs/siamese_train/"
 AdamW:
-    learning_rate_large: 5e-4
-    learning_rate_small: 5e-5
-    weight_decay_large: 1e-3
-    weight_decay_small: 1e-4
+    learning_rate: 1e-4
+    weight_decay: 1e-4

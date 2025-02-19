@@ -1,2 +1,3 @@
 from .resnet18sge import ResNet18WithSGE
 from .resnet18cbam import ResNet18WithCBAM
+from .resnet_feature_extract import ResNet18WithSGEFeatureExtractor

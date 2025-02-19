@@ -15,6 +15,7 @@ from src.siamese_model_train.triplet_dataset import TripletDataset
 from src.siamese_model_train.triplet_loss import TripletLoss
 from src.classification_model_pretrain.custom_dataset import CustomDataset
 from models import ResNet18WithSGE
+from models import ResNet18WithSGEFeatureExtractor
 from utilities import load_config
 
 
@@ -98,6 +99,34 @@ def train_siamese(CONFIGS_PATH):
         transforms.RandomPerspective(distortion_scale=0.6, p=0.25),
         transforms.Normalize(siamese_config['dataset']['MEAN'], siamese_config['dataset']['STD'])
     ])
+    
+    train_dataset = TripletDataset(train_images, enc_tlabels, 'train', transform_v1, 
+                                   siamese_config['dataset']['DATA_MODES'])
+    train_dataloader = DataLoader(train_dataset, batch_size=siamese_config['dataloader']['batch_size'], 
+                                  num_workers=siamese_config['dataloader']['num_workers'], shuffle=True)
+    val_dataset = TripletDataset(val_images, enc_vlabels, 'val', transform_v1, 
+                                 siamese_config['dataset']['DATA_MODES'])
+    val_dataloader = DataLoader(val_dataset, batch_size=siamese_config['dataloader']['batch_size'], 
+                                num_workers=siamese_config['dataloader']['num_workers'])
+
+    model = ResNet18WithSGEFeatureExtractor(num_classes=model_config['model']['num_classes'], 
+                                            groups=model_config['model']['groups'], 
+                                            pretrained=model_config['model']['pretrained'])
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = model.to(device) 
+
+    checkpoint_path = '/model_svs/pretrain/second_model_ResNet18_SGE_20250112_190440_20'
+    checkpoint = torch.load(checkpoint_path, map_location=device)
+    model.load_state_dict(checkpoint)
+
+    mw = MetricsWriter(model, model_name=siamese_config['train']['model_name'], 
+                       save_treshold=siamese_config['train']['save_treshold'])
+    loss_func = nn.TripletMarginWithDistanceLoss(margin=siamese_config['train']['margin'])
+    optimizer = optim.AdamW(model.parameters(), lr=siamese_config['AdamW']['learning_rate'], 
+                            weight_decay=siamese_config['AdamW']['weight_decay'])
+    
+    train(model, mw, loss_func, optimizer, train_dataloader, val_dataloader, 
+          siamese_config['dataloader']['batch_size'], epochs=siamese_config['train']['epochs'])
     
 
 def main():
