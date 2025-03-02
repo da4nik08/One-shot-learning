@@ -43,4 +43,4 @@ def save_siamese_features_db():
     checkpoint = torch.load(best_model, map_location=device)
     model.load_state_dict(checkpoint)
     
-    generate_siamese_embeddings_db(model, dataloader)       # saves this db
+    generate_siamese_embeddings_db(model, dataloader, config)       # saves this db

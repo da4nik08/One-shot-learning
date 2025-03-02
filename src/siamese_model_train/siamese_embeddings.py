@@ -15,9 +15,9 @@ from models import ResNet18WithSGEFeatureExtractor
 from utilities import load_config, clear_cache, save_pkl
 
 
-def generate_siamese_embeddings_db(model, dataloader):
+def generate_siamese_embeddings_db(model, dataloader, config):
     model.eval()
-    
+
     embeddings = []
     true_labels = []
     with torch.inference_mode():
