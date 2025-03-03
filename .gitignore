@@ -1,0 +1,5 @@
+**/*.jpg
+**/*.jpg.npy
+*-checkpoint*
+*.pyc
+**/.ipynb_checkpoints/

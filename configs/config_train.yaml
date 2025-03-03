@@ -1,0 +1,26 @@
+dataset:
+    folder_base: '/kaggle/input/2022-ukraine-russia-war-equipment-losses-oryx/'
+    folder_img_ru: ['img_russia/img_russia/', 'img_russia_2024-07-12/img_russia/']
+    folder_img_ua: ['img_ukraine/img_ukraine/', 'img_ukraine_2024-07-12/img_ukraine/']
+    path_img_metadata_ru: '/kaggle/input/2022-ukraine-russia-war-equipment-losses-oryx/img_russia_losses_metadata.csv'
+    path_img_metadata_ua: '/kaggle/input/2022-ukraine-russia-war-equipment-losses-oryx/img_ukraine_losses_metadata.csv'
+    path_losses_ru: '/kaggle/input/2022-ukraine-russia-war-equipment-losses-oryx/losses_russia.csv'
+    path_losses_ua: '/kaggle/input/2022-ukraine-russia-war-equipment-losses-oryx/losses_ukraine.csv'
+    RESCALE_SIZE: 320
+    MEAN: [0.5097, 0.524, 0.5099]
+    STD: [0.212, 0.212, 0.237]
+    DATA_MODES: ['train', 'val', 'test']
+    target_name: 'equipment'
+dataloader:
+    batch_size: 64
+    num_workers: 4
+train:
+    svs_path: "model_svs/siamese_train/"
+    model_name: "first_try"
+    epochs: 50
+    save_treshold: 2
+    margin: 1
+    log_path: "logs/siamese_train/"
+AdamW:
+    learning_rate: 1e-4
+    weight_decay: 1e-4

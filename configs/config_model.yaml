@@ -1,0 +1,4 @@
+model:
+    groups: [2, 4, 4, 4]
+    num_classes: 11
+    pretrained: True
