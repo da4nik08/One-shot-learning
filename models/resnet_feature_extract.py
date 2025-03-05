@@ -1,4 +1,5 @@
 from models import ResNet18WithSGE
+import torch
 
 
 class ResNet18WithSGEFeatureExtractor(ResNet18WithSGE):
