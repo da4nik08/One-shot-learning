@@ -40,7 +40,7 @@ def pretrain(CONFIGS_PATH):
                                   num_workers=config['dataloader']['num_workers'], shuffle=True)
     val_dataset = CustomDataset(val_images, val_labels, 'val', transform_val, config['dataset']['DATA_MODES'])
     val_dataloader = DataLoader(val_dataset, batch_size=config['dataloader']['batch_size'],
-                                num_workers=num_workers=config['dataloader']['num_workers'])
+                                num_workers=config['dataloader']['num_workers'])
 
     model = ResNet18WithSGE(num_classes=model_config['model']['num_classes'], groups=model_config['model']['groups'], 
                             pretrained=model_config['model']['pretrained'])

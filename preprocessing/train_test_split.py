@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def train_test_split(capt_df, target_name)
+def train_test_split(capt_df, target_name):
     class_counts = capt_df[target_name].value_counts()
     val_data = pd.DataFrame()
     train_data = capt_df.copy()

@@ -29,7 +29,7 @@ def preprocessing_real_ds(dataframe):
         
         try:
             img = Image.open(img_path)
-            if img.mode != 'RGB'
+            if img.mode != 'RGB':
                 img = img.convert('RGB')
             resized_img = custom_transform(img, RESCALE_SIZE)
             image_list.append(resized_img)
