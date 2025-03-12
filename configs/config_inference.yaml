@@ -1,0 +1,6 @@
+paths:
+    input_img_directory: 'input_images'
+    output_directory: 'output_file/'
+dataloader:
+    batch_size: 64
+    num_workers: 4
