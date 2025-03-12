@@ -5,6 +5,7 @@ import torch
 from sklearn.preprocessing import LabelEncoder
 from PIL import Image
 from src.classification_model_pretrain.custom_dataset import CustomDataset
+from preprocessing import SiameseTransform
 from models import ResNet18WithSGEFeatureExtractor
 from utilities import load_config, clear_cache, save_pkl
 
