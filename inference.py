@@ -7,19 +7,19 @@ from src.classification_model_pretrain.custom_dataset import CustomDataset
 from src.inference_model.batch_loop import batch_inference
 from models import ResNet18WithSGEFeatureExtractor
 from preprocessing import SiameseTransform, preprocessing_inference
-from utilities import load_config, clear_cache, save_pkl, get_pkl
+from utilities import clear_cache, save_pkl, get_pkl, parse_configs 
 
 
 def inference():
     CONFIGS_PATH = "configs/"
-    config = load_config(CONFIGS_PATH, "models_weights.yaml")
-    config_inf = load_config(CONFIGS_PATH, "config_inference.yaml")
-    config_train = load_config(CONFIGS_PATH, "config_train.yaml")
-    model_config = load_config(CONFIGS_PATH, "config_model.yaml")
-    config_inf = load_config(CONFIGS_PATH, "config_inference.yaml")
+    configs = parse_configs(CONFIGS_PATH)
+
+    config = configs["models_weights"]
+    config_inf = configs["config_inference"]
+    config_train = configs["config_train"]
+    model_config = configs["config_model"]
     
     best_pretrain_model = os.path.join(config['paths']['pretrain_path'], config['weights']['best_pretrained_model'])
-    siamese_config = load_config(CONFIGS_PATH, "config_train.yaml")
 
     encoder_path = os.path.join(config['paths']['encoder_path'], config['encoder']['enc_name'])
     embeddings_path = os.path.join(config['paths']['embeddings_path'], config['img_db']['labels_name'])

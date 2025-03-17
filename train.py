@@ -16,12 +16,13 @@ from src.siamese_model_train.triplet_loss import TripletLoss
 from src.classification_model_pretrain.custom_dataset import CustomDataset
 from models import ResNet18WithSGE
 from models import ResNet18WithSGEFeatureExtractor
-from utilities import load_config, clear_cache
+from utilities import clear_cache, parse_configs
 
 
 def pretrain(CONFIGS_PATH):
-    config = load_config(CONFIGS_PATH, "config_pretrain.yaml")
-    model_config = load_config(CONFIGS_PATH, "config_model.yaml")
+    configs = parse_configs(CONFIGS_PATH)
+    config = configs["config_pretrain.yaml"]
+    model_config = configs["config_model.yaml"]
 
     train_images, train_labels = preprocessing(config['dataset']['image_folder_train'], 
                                                config['dataset']['labels_folder_train'], 
@@ -74,8 +75,9 @@ def pretrain(CONFIGS_PATH):
 
 
 def train_siamese(CONFIGS_PATH, checkpoint_path):
-    siamese_config = load_config(CONFIGS_PATH, "config_train.yaml")
-    model_config = load_config(CONFIGS_PATH, "config_model.yaml")
+    configs = parse_configs(CONFIGS_PATH)
+    siamese_config = configs["config_train.yaml"]
+    model_config = configs["config_model.yaml"]
     
     capt_df = get_captured(siamese_config['dataset']['path_img_metadata_ru'], siamese_config['dataset']['target_name'])
     train_data, val_data = train_test_split(capt_df, siamese_config['dataset']['target_name'])
@@ -124,7 +126,8 @@ def train_siamese(CONFIGS_PATH, checkpoint_path):
 
 def train():
     CONFIGS_PATH = "configs/"
-    config = load_config(CONFIGS_PATH, "models_weights.yaml")
+    configs = parse_configs(CONFIGS_PATH)
+    config = configs["models_weights.yaml"]
     pretrain(CONFIGS_PATH)
     best_pretrain_model = os.path.join(config['paths']['pretrain_path'], config['weights']['best_pretrained_model'])
     train_siamese(CONFIGS_PATH, best_pretrain_model)

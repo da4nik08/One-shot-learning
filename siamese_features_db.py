@@ -7,15 +7,16 @@ from PIL import Image
 from src.classification_model_pretrain.custom_dataset import CustomDataset
 from preprocessing import SiameseTransform
 from models import ResNet18WithSGEFeatureExtractor
-from utilities import load_config, clear_cache, save_pkl
+from utilities import clear_cache, save_pkl, parse_configs
 
 
 def save_siamese_features_db():
     CONFIGS_PATH = "configs/"
-    config = load_config(CONFIGS_PATH, "models_weights.yaml")
+    configs = parse_configs(CONFIGS_PATH)
+    config = configs["models_weights.yaml"]
+    siamese_config = configs["config_train.yaml"]
     
     best_pretrain_model = os.path.join(config['paths']['pretrain_path'], config['weights']['best_pretrained_model'])
-    siamese_config = load_config(CONFIGS_PATH, "config_train.yaml")
     
     capt_df = get_captured(siamese_config['dataset']['path_img_metadata_ru'], siamese_config['dataset']['target_name'])
     images, labels, _ = preprocessing_real_ds(capt_df)
