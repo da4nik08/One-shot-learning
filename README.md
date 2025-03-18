@@ -22,9 +22,23 @@ To set up the environment, run:
 
 ```bash
 pip install -r requirements.txt
+```
 
 ## Usage
 Run the training pipeline:
 
 ```bash
 python train.py --configs config_pretrain.yaml config_model.yaml
+```
+
+Run the creation database pipeline:
+
+```bash
+python siamese_features_db.py --configs models_weights.yaml config_train.yaml
+```
+
+Run the inference pipeline:
+
+```bash
+python inference.py --configs models_weights.yaml config_inference.yaml config_model.yaml config_train.yaml
+```
