@@ -22,3 +22,9 @@ To set up the environment, run:
 
 ```bash
 pip install -r requirements.txt
+
+## Usage
+Run the training pipeline:
+
+```bash
+python train.py --configs config_pretrain.yaml config_model.yaml
