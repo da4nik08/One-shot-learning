@@ -10,7 +10,7 @@ This project implements **One-Shot Learning** using deep learning techniques. It
 - [Features](#features)
 - [Configuration](#configuration)
 - [Training Process](#training-process)
-- [Evaluation](#evaluation)
+- [Inference](#inference)
 - [Results](#results)
 - [Dependencies](#dependencies)
 - [Troubleshooting](#troubleshooting)
@@ -37,8 +37,51 @@ Run the creation database pipeline:
 python siamese_features_db.py --configs models_weights.yaml config_train.yaml
 ```
 
-Run the inference pipeline:
+## Features
+- One-Shot Learning with Triplet Loss
+- ResNet18 with SGE or CBAM attention module for feature extraction
+- Data augmentation by torchvision
+- Triplets are created using hard batching
+- Custom dataset handling with CustomDataset and TripletDataset
+- Logging and Metrics tracking (TensorBoard supported)
+- YAML-based configurations for flexibility
+- EDA was introduced as jupyter-notebooks
+
+## Configuration
+Modify YAML files in the *configs/* directory to adjust:
+
+- Model hyperparameters
+- Training settings
+- Preprocessing settings
+
+## Training Process
+
+1. Pretraining: Classification-based learning on the big dataset.
+2. Fine-Tuning: Training real dataset the Siamese Network with Triplet Loss.
+
+## Inference
+To obtain results run inference pipeline:
 
 ```bash
 python inference.py --configs models_weights.yaml config_inference.yaml config_model.yaml config_train.yaml
 ```
+
+## Metrics
+- Training and Validation Loss
+- Accuracy over Validation Set
+- Recall and Precision over Validation Set
+- Similarity Score Distributions
+
+## Results
+Training loss and accuracy graphs will be added here:
+
+## Dependencies
+- Python 3.x
+- PyTorch
+- torchvision
+- NumPy
+- Pandas
+- scikit-learn
+- tqdm
+- PIL
+
