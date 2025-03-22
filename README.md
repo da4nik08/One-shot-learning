@@ -55,6 +55,11 @@ The dataset comprises 11,800 images and labels tailored for the YOLO detection a
 
 This dataset is clear (has good quality images from different angles, the equipment is clearly visible and poorly disguised), so it will be used for pretraining model
 
+[2022 Russia Ukraine War, Losses, Oryx + Images](https://www.kaggle.com/datasets/piterfm/2022-ukraine-russia-war-equipment-losses-oryx)
+The dataset describes russian and Ukrainian Equipment Losses During The 2022 Russian Invasion Of Ukraine. This list only includes destroyed vehicles and equipment of which photo or videographic evidence is available. Therefore, the amount of equipment destroyed is significantly higher than recorded. You can find numbers here 2022 Ukraine Russia War Dataset.
+
+This dataset has real images from drones. The equipment has good camouflage and is in combat conditions. However, since this dataset is designed to calculate losses, most of the equipment is severely damaged and broken into small pieces. Some confirmations of losses are screenshots from posts relevant to our task. Also, many vehicles have anti-drone grilles that cover most of the body. Thus, this dataset needs to be manually sorted, selecting only a small portion of instances for our task.
+
 ## Features
 - One-Shot Learning with Triplet Loss
 - ResNet18 with SGE or CBAM attention module for feature extraction
