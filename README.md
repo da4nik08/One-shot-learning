@@ -52,6 +52,7 @@ The dataset comprises 11,800 images and labels tailored for the YOLO detection a
 9) Anti-aircraft vehicle (AA).
 10) Towed artillery (TART).
 11) Self-propelled artillery (SPART).
+
 This dataset is clear (has good quality images from different angles, the equipment is clearly visible and poorly disguised), so it will be used for pretraining model
 
 ## Features
