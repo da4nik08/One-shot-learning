@@ -41,17 +41,17 @@ python siamese_features_db.py --configs models_weights.yaml config_train.yaml
 ## Datasets
 [Military Decision-Making Dataset](https://www.kaggle.com/datasets/nzigulic/military-equipment)
 The dataset comprises 11,800 images and labels tailored for the YOLO detection algorithm, categorizing objects as follows:
-1) Tank (TANK)
-2) Infantry fighting vehicle (IFV)
-3) Armored personnel carrier (APC)
-4) Engineering vehicle (EV)
-5) Assault helicopter (AH)
-6) Transport helicopter (TH)
-7) Assault airplane (AAP)
-8) Transport airplane (TA)
-9) Anti-aircraft vehicle (AA)
-10) Towed artillery (TART)
-11) Self-propelled artillery (SPART)
+1) Tank (TANK).
+2) Infantry fighting vehicle (IFV).
+3) Armored personnel carrier (APC).
+4) Engineering vehicle (EV).
+5) Assault helicopter (AH).
+6) Transport helicopter (TH).
+7) Assault airplane (AAP).
+8) Transport airplane (TA).
+9) Anti-aircraft vehicle (AA).
+10) Towed artillery (TART).
+11) Self-propelled artillery (SPART).
 This dataset is clear (has good quality images from different angles, the equipment is clearly visible and poorly disguised), so it will be used for pretraining model
 
 ## Features
