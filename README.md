@@ -21,7 +21,9 @@ This project implements **One-Shot Learning** for recognition military equipment
 
 ## Project description
 The goal of this project is to solve the problem of recognizing military equipment in the absence of a large number of training examples by class (**One-Shot Learning**). As a basis for the model, I chose Resnet, which can be replaced with Inception if desired. Then I modified it with the help of attention mechanisms, and two versions were implemented. The first one is a combination of channel and spatial attention and is called **[CBAM](https://arxiv.org/abs/1807.06521)**. The second one is **[SGE](https://arxiv.org/pdf/1905.09646)** (Spatial Group-wise Enhance), which is more optimized, requires less computation, and works faster.
+
 Consider the training process. First, I chose a trained resnet on a common recognition task from the torchvision library. Next, I modified this model using the developed attention mechanisms. I pre-trained this model to classify images from a large clean dataset.  The last part was to create a **triplet loss** to train a **Siamese neural network**. This network was fine-tuned using a small real-world drone dataset that has many complex images to recognize. For this training, triplets were generated using the **[hard batching](https://arxiv.org/pdf/1703.07737)** method.
+
 The training was conducted using notebooks on the kaggle service using a GPU P100.
 
 ## Installation
@@ -103,6 +105,7 @@ python inference.py --configs models_weights.yaml config_inference.yaml config_m
 
 ## Results
 Training loss and accuracy graphs will be added here:
+![Training MAP](assets/MAP_real.png)
 
 ## Dependencies
 - Python 3.x
