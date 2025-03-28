@@ -104,31 +104,38 @@ python inference.py --configs models_weights.yaml config_inference.yaml config_m
 - Similarity Score Distributions
 
 ## Results
-# Results of pretraining classification model on a big clear dataset (*Military Decision-Making*):
+### Results of pretraining classification model on a big clear dataset (*Military Decision-Making*):
 
 Training and Validation loss
+
 ![Pretraining Loss](assets/TrainVSValid_loss.png)
 
 Validation metrics
+
 ![Validation metrics](assets/Valid_metrics.png)
 
-# Results of training siamese model on a big clear dataset (*Military Decision-Making*):
+### Results of training siamese model on a big clear dataset (*Military Decision-Making*):
 
 Training and Validation loss
+
 ![Training clear Loss](assets/TrainVSValid_loss_real.png)
 
 MAP graph for Validation data
+
 ![Training clear MAP](assets/MAP_clear.png)
 
-# Results of training siamese model on a small real dataset (*2022 Russia Ukraine War, Losses, Oryx + Images*):
+### Results of training siamese model on a small real dataset (*2022 Russia Ukraine War, Losses, Oryx + Images*):
 
 Training and Validation loss
+
 ![Training real Loss](assets/loss_real.png)
 
 Accuracy
-![Accuracy](assets/accuracy_real)
+
+![Accuracy](assets/accuracy_real.png)
 
 MAP graph for Validation part of real dataset
+
 ![Training real MAP](assets/MAP_real.png)
 
 ## Dependencies
