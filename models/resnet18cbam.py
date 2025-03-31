@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision.models as models
 from torch.nn import init
-from cbam import CBAM
+from models.cbam import CBAM
 
 
 class ResNet18WithCBAM(nn.Module):

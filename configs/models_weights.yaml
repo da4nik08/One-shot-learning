@@ -1,0 +1,13 @@
+paths:
+    pretrain_path: "model_svs/pretrain/"
+    train_path: "model_svs/siamese_train/"
+    encoder_path: "model_svs/label_encoder/"
+    embeddings_path: "model_svs/embeddings_db/"
+weights:
+    best_pretrained_model: "second_model_ResNet18_SGE_20250112_190440_20"
+    best_model: "fourht_model_ResNet18_SGE_20250120_231906_14"
+encoder:
+    enc_name: "label_ecnoder.pkl"
+img_db:
+    labels_name: "labels.pkl"
+    embeddings_name: "embeddings.pkl"

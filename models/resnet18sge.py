@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from torch.nn.parameter import Parameter
 from torch.nn import init
 import math
-from sge import SpatialGroupEnhance
+from models.sge import SpatialGroupEnhance
 
 
 class ResNet18WithSGE(nn.Module):

@@ -1,0 +1,6 @@
+transform:
+    horizontalflip_prop: 0.25
+    rotation_degrees: 25
+    perspective_distortion: 0.6
+    perspective_prop: 0.25
+    
